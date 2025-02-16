@@ -3,7 +3,6 @@ from core.file_handler import extract_text_from_file
 from core.faiss_index import add_to_index, search_index
 from core.llm_utils import generate_summary
 import os
-import asyncio
 
 router = APIRouter()
 
@@ -26,18 +25,8 @@ def search(query: str = Query(...)):
     results = search_index(query)
     return {"query": query, "results": results}
 
-# @router.get("/ask")
-# async def ask(query: str = Query(..., description="Ask a question")):
-#     """API route for querying the LLM."""
-#     retrieved_docs = [query]  # Simulated document retrieval for now
-
-#     # Call generate_summary asynchronously
-#     summary = await generate_summary(retrieved_docs)
-
-#     return {"query": query, "summary": summary}
-
 @router.get("/ask")
-async def ask(query: str = Query(...)):
-    """Handle queries with proper async execution."""
-    summary = await generate_summary([query])
-    return {"query": query, "summary": summary}
+def ask(query: str):
+    results = search_index(query)
+    summary = generate_summary(results)
+    return {"query": query, "results": results, "summary": summary}
