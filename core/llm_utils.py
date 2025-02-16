@@ -13,6 +13,22 @@ def generate_summary(docs):
     return "Dummy summary"
 
 # from transformers import pipeline
+# import asyncio
+
+# # Load Summarization Model
+# summarizer = pipeline("summarization", model="facebook/bart-large-cnn", device=-1)  # Use CPU
+
+# async def generate_summary(docs):
+#     """Asynchronous summarization using BART."""
+#     input_text = " ".join(docs)
+#     max_length = min(len(input_text.split()) * 2, 100)  # Ensuring correct truncation
+
+#     loop = asyncio.get_running_loop()
+#     summary = await loop.run_in_executor(None, lambda: summarizer(input_text, max_length=max_length, min_length=30, truncation=True))
+
+#     return summary[0]['summary_text']
+
+# from transformers import pipeline
 
 
 # # Load Summarization Model with CPU mode
